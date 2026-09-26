@@ -1,0 +1,33 @@
+# Copyrighted sources: never push
+OceanofPDF.com_AI_Engineering_Building_Applications_-_Chip_Huyen.md
+_OceanofPDF.com_AI_Engineering_Building_Applications_-_Chip_Huyen.pdf
+*.pdf
+Marina wyss Ai engineer lesson.txt
+
+# Secrets
+.env
+.env.*
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Models and large data
+*.safetensors
+*.bin
+*.gguf
+*.pt
+*.ckpt
+models/
+data/
+
+# Claude Code local files
+.claude/
+
+# macOS
+.DS_Store
+
+# Private career plan
+CAREER.md
