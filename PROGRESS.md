@@ -28,3 +28,14 @@
 - Added a private local plan (`CAREER.md`, gitignored).
 - Added GitHub rules to CLAUDE.md; rewrote README.md as the public front page; created .gitignore (book, transcript, .venv, secrets, weights excluded).
 - `git init -b main` done. **Waiting on:** `gh auth login` as Xasasan, then create the public repo `ai-engineering-journey` and make the first push.
+- Pushed the first commit `3a473cc` to https://github.com/Xasasan/ai-engineering-journey (public, author Xasasan via noreply email).
+
+## 2026-10-10 — Session 0e: Plan re-check against a job-ad roadmap
+- Compared PLAN.md with the "AI Engineer Roadmap: Built From 40,000 Real Job Ads" video (Core / AI Core / Stack / Project).
+- Already covered: LLMs, RAG, agents, evals (stronger than the video), safety/speed. Missing: building APIs, CI/CD, Docker, LangChain/LangGraph, cloud deploy, running the project live.
+- Decided: course **not started yet**. Add a 2-week **Core bootcamp** (B1 Oct 12, B2 Oct 19) and the "branch → PR → green CI" rule for every week. Book W1 is now **Oct 26**; all dates +4 weeks; end ≈ Jul 25 2027.
+- Added: CI eval gate (W15), FastAPI capstone (W19), LangChain RAG (W20), LangGraph agent (W22), Docker (W27), AWS account (W33) + deploy (W34), CD + 1 week live (W36–38).
+- Capstone is now a **study agent** that takes actions (quiz, grade notes, store weak spots, schedule review), not a PDF Q&A demo. Cloud = **AWS**.
+- Updated PLAN.md, README.md, CAREER.md (dates + roadmap notes).
+
+**Next:** B1 Day 1 (Mon Oct 12): baseline self-test on all 8 skills, then start Python for engineers.
