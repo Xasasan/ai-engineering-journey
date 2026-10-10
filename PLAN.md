@@ -10,7 +10,7 @@ Reading pace is about 5–7 PDF pages/day, leaving time to re-read the hard part
 **What each exercise needs:**
 `[—]` no model · `[local]` a free open model on the Mac or Linux server · `[API]` a paid LLM API (provider chosen in **Week 8**) · `[claude -p]` Claude Code headless mode, included in Max
 
-**Core rule (from B2 on, every week):** all code goes branch → PR → green CI (ruff + pytest) → merge. Functions are typed, and every exercise has at least one test. This is how the core becomes habit, not a one-off.
+**Core rule (from B2 on, every week):** all code goes branch → PR → green CI (ruff + pytest + `docker build`) → merge. When the B2 app gets a new endpoint, rebuild and run its container locally. Functions are typed, and every exercise has at least one test. This is how the core becomes habit, not a one-off.
 
 ## Core bootcamp (before Chapter 1) [Beyond the book]
 | Week | Dates | Learn | Build / Check |
@@ -30,18 +30,18 @@ Reading pace is about 5–7 PDF pages/day, leaving time to re-read the hard part
 | 5 | Nov 23 | Training Data p. 121–134 · Model Architecture p. 135–150 | Draw the attention + prefill/decode diagram from memory `[—]` |
 | 6 | Nov 30 | Model Size p. 151–168 (scaling laws, Chinchilla) | Compute: params → memory, Chinchilla token budget `[—]` |
 | 7 | Dec 7 | Post-Training p. 169–186 (SFT p. 173, preference finetuning p. 179) | Explain RLHF vs DPO in 5 sentences `[—]` |
-| 8 | Dec 14 | Sampling p. 187–231 (strategies 191, test-time compute 199, structured outputs 206, probabilistic nature 214). Heavy week: 45 pages | Temperature/top-k/top-p from logits in NumPy `[—]` · the same knobs on a real model `[local]` · structured output with a pydantic schema via an OpenAI-compatible SDK `[API]` · **Ch 2 exam**. **⚑ API decision** (see below) |
+| 8 | Dec 14 | Sampling p. 187–231 (strategies 191, test-time compute 199, structured outputs 206, probabilistic nature 214). Heavy week: 45 pages | Temperature/top-k/top-p from logits in NumPy `[—]` · the same knobs on a real model `[local]` · structured output with a pydantic schema via an OpenAI-compatible SDK `[API]`, served as a `/extract` endpoint in the B2 FastAPI app · **Ch 2 exam**. **⚑ API decision** (see below) |
 
 ## Month 3 — Chapter 3: Evaluation Methodology (p. 232–314) · M 08:37
 | 9 | Dec 21 | Challenges p. 234–239 · Language Modeling Metrics p. 240–251 | Entropy / cross-entropy / perplexity with GPT-2 via HF (needs logprobs, p. 195–196) `[local]` |
-| 10 | Dec 28 | Exact Evaluation p. 252–270 · AI as a Judge p. 271–280 | Exact match, BLEU/ROUGE `[—]` · embedding similarity with `sentence-transformers` `[local]` · generate answers `[API]` |
+| 10 | Dec 28 | Exact Evaluation p. 252–270 · AI as a Judge p. 271–280 | Exact match, BLEU/ROUGE `[—]` · embedding similarity with `sentence-transformers` `[local]` · generate answers `[API]` · expose the scorers as a `/score` endpoint |
 | 11 | Jan 4 | AI as a Judge p. 281–294 (limitations 281) · Comparative Evaluation p. 295–314 | AI judge: **measure position bias** by swapping order `[API]` · **Ch 3 exam** |
 
 ## Month 4 — Chapter 4: Evaluate AI Systems (p. 315–415) · M 14:50
 | 12 | Jan 11 | Evaluation Criteria p. 316–338 (domain-specific 319, generation 324) | Write a rubric for a real task `[—]` |
 | 13 | Jan 18 | Instruction-Following p. 339–350 · Cost and Latency p. 351–354 | Measure TTFT/latency/cost across small, medium, and large models `[API]` |
 | 14 | Jan 25 | Model Selection p. 355–392 (workflow 356, build vs buy 359, benchmarks 377) | Model-selection memo: hard vs soft attributes `[—]` |
-| 15 | Feb 1 | Design Your Evaluation Pipeline p. 393–415 | Eval pipeline v1 + **bootstrap reliability check** `[API]` · runs in CI and **fails the build if the score drops** · **Ch 4 exam** |
+| 15 | Feb 1 | Design Your Evaluation Pipeline p. 393–415 | Eval pipeline v1 + **bootstrap reliability check** `[API]` · runs in CI and **fails the build if the score drops** · `/eval` endpoint returns the scores · **Ch 4 exam** |
 
 ## Month 5 — Chapter 5: Prompt Engineering (p. 416–493) · M 23:13
 | 16 | Feb 8 | Introduction to Prompting p. 417–430 · Clear Instructions p. 432 · Sufficient Context p. 440 (to p. 441) | Prompts stored as versioned files, not in code `[—]` |
@@ -49,7 +49,7 @@ Reading pace is about 5–7 PDF pages/day, leaving time to re-read the hard part
 | 18 | Feb 22 | Defensive Prompt Engineering p. 462–493 | Red-team your own app: violation rate vs false-refusal rate `[API]` · **Ch 5 exam** |
 
 ## Months 5–6 — Chapter 6: RAG and Agents (p. 494–593) · M 30:20 (RAG), 36:56 (Agents)
-| 19 | Mar 1 | RAG Architecture p. 498 · Retrieval Algorithms p. 500–519 | **Capstone start** as a **FastAPI** service (`/search` endpoint): BM25 retriever over this book's .md, from scratch `[—]` |
+| 19 | Mar 1 | RAG Architecture p. 498 · Retrieval Algorithms p. 500–519 | **Capstone start** as a **FastAPI** service (`/search` endpoint): BM25 retriever over this book's .md, from scratch, with a **Dockerfile from day one** `[—]` |
 | 20 | Mar 8 | Retrieval Optimization p. 520–529 · RAG Beyond Texts p. 530–534 | Embeddings + hybrid search `[local]`; retrieval eval (recall@k) `[—]`; answer generation `[API]` · rebuild the same RAG in **LangChain**, compare recall@k + code size (Book p. 892–893: build without an orchestrator first) |
 | 21 | Mar 15 | Agent Overview p. 536 · Tools p. 540 · Planning p. 546–560 | Tool-use agent with 2 of *your own* tools `[API]` |
 | 22 | Mar 22 | Planning p. 561–575 · Agent Failure Modes & Evaluation p. 576 · Memory p. 581–593 | Agent eval + memory `[API]` · port the agent to **LangGraph**, same eval, compare debuggability · **Ch 6 exam** |
@@ -61,14 +61,14 @@ Reading pace is about 5–7 PDF pages/day, leaving time to re-read the hard part
 | 26 | Apr 19 | Model Merging p. 664–679 · Finetuning Tactics p. 680–693 | Evaluate your LoRA vs base `[local]` · **Ch 7 exam** |
 
 ## Month 8 — Chapter 8: Dataset Engineering (p. 694–772) · M 52:43
-| 27 | Apr 26 | Data Curation p. 697–725 | Data-quality checklist for your LoRA data `[—]` · Day 7: **Dockerize the capstone** (Dockerfile + `docker compose`) |
+| 27 | Apr 26 | Data Curation p. 697–725 | Data-quality checklist for your LoRA data `[—]` · Day 7: **`docker compose`** for the capstone: app container + a database container for weak spots |
 | 28 | May 3 | Data Augmentation and Synthesis p. 726–754 (AI-powered 738, distillation 753) | Synthetic dataset + AI-judge filtering `[API]` (the Batch API cuts this cost by 50%) |
 | 29 | May 10 | Data Processing p. 755–772 (inspect, dedup 759, clean, format) | Dedup (exact + near-dup) pipeline `[—]` · **Ch 8 exam** |
 
 ## Month 8–9 — Chapter 9: Inference Optimization (p. 773–851) · M 59:45
 | 30 | May 17 | Understanding Inference Optimization p. 775–807 (metrics 784, accelerators 796) | Benchmark TTFT/TPOT/throughput on a local model `[local]` |
 | 31 | May 24 | Model Optimization p. 808–832 (compression, speculative decoding, attention/KV cache) | Quantized vs full model: speed + quality `[local]` |
-| 32 | May 31 | Inference Service Optimization p. 833–851 (batching, prefill/decode, prompt caching, parallelism) | Batching with vLLM on the server `[local]` · prompt caching: measure the cost drop `[API]` · **Ch 9 exam** |
+| 32 | May 31 | Inference Service Optimization p. 833–851 (batching, prefill/decode, prompt caching, parallelism) | Batching with vLLM on the server, run from its **official Docker image** with GPU passthrough `[local]` · prompt caching: measure the cost drop `[API]` · **Ch 9 exam** |
 
 ## Month 9 — Chapter 10: Architecture & User Feedback (p. 852–931) · M 01:08:53
 | 33 | Jun 7 | Architecture Steps 1–4 p. 853–874 (context 854, guardrails 856, router & gateway 863, caches 871) | Add guardrails + model router + cache to the capstone `[API]` · create the **AWS** account now (new-account credits expire, so not earlier) |

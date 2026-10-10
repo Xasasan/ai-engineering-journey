@@ -39,3 +39,10 @@
 - Updated PLAN.md, README.md, CAREER.md (dates + roadmap notes).
 
 **Next:** B1 Day 1 (Mon Oct 12): baseline self-test on all 8 skills, then start Python for engineers.
+
+## 2026-10-10 — Session 0f: API practice gap
+- Found a 4-month gap with no API building between B2 and W19. Added FastAPI endpoints to the B2 app: `/extract` (W8), `/score` (W10), `/eval` (W15).
+- Started B1 Day 1 early (Sat): baseline self-test (20 questions, /40) handed out; answers go in `notes/b1_baseline.md`.
+
+**Next:** Xasan finishes the baseline → I check it and log per-skill scores → Day 1 exercise (`code/b1/`: pydantic `Transcript` + JSONL loader + pytest).
+- Docker had a 6-month gap (B2 → W27). Fixed: `docker build` in CI from B2 on; capstone Dockerfile from W19; W27 = `docker compose` (app + DB); W32 = vLLM in its official Docker image.
